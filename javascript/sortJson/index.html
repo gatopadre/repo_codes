@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="main.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+</head>
+<body>
+    <script type="text/javascript">
+        var propiedades =[
+                { nombre: "Manzana", tipo: "Fruta", id : "f1"},
+                { nombre: "Naranja", tipo: "Fruta", id : "f2"},
+                { nombre: "San Martín 123", tipo: "Dirección", id : "d3"},
+                { nombre: "Los Carrera 433", tipo: "Dirección", id : "d4"},
+                { nombre: "Disecado", tipo: "Técnica", id : "t0"},
+                { nombre: "Envasado", tipo: "Técnica", id : "t1"},
+                { nombre: "Cosecha", tipo: "Técnica", id : "t2"}
+                ]
+
+        var tipos = propiedades.map(function (propiedad) { return propiedad.tipo; });
+        //var tiposOrdenados = tipos.sort();
+
+        var distintosTipos = tipos.filter(function (value, index) {            
+            return value !== tipos[index + 1];
+        });
+ 
+        var arrayFinal = new Array();
+
+        $.each(distintosTipos, function(i, item) {
+            var array = new Array();
+            for (let j = 0; j < propiedades.length; j++) {
+                if (distintosTipos[i] == propiedades[j].tipo) {               
+                    array.push(propiedades[j].nombre)
+                }                
+            }                 
+            arrayFinal.push(array);
+        });
+
+        var canales = new Array();
+
+        for (let index3 = 0; index3 < arrayFinal[0].length; index3++) {
+            for (let index2 = 0; index2 < arrayFinal[1].length; index2++) {
+                for (let index = 0; index < arrayFinal[2].length; index++) {
+                    var canal = {nombre: arrayFinal[0][index3]+' '+arrayFinal[1][index2]+' '+arrayFinal[2][index]}    
+                    canales.push(canal);       
+                }            
+            }
+        }
+
+        $(document).ready(function() {
+            $('#resultado').html(JSON.stringify(canales));
+        })       
+
+        console.log(canales);
+    </script>    
+    <div id="resultado"></div>
+
+</body>
+</html>
