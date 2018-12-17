@@ -219,6 +219,18 @@ function upperName() {
 	})
 }
 
+var upperName = new Promise (function (resolve, reject) {
+  var upperNames = [];
+  for (let index = 0; index < teams.length; index++) {
+    upperNames[index] = teams[index].name.toUpperCase();    
+  }    
+  if (upperNames !== null) {
+    resolve(upperNames);    
+  } else {
+    reject('fallo!');
+  }
+})
+
 
 // 9 Realice una función que retorne una promesa con los nombres de los equipos en upper case.
 // haga la llamada a la función creada desde esta función y asignarle la respuesta a la variable response.
@@ -228,14 +240,18 @@ function upperName() {
 async function getTeamsNamesAsUpperCase () {
   let response
   // ------MAKE AWAIT CALL HERE------
-  upperName().then(r =>{
-    response = r;
-  }).catch(() => {
-    console.log('Algo salió mal');
-  });
+  response  = upperName
+    .then (function (params) {
+      // console.log(params);
+      return params
+    })
+    .catch (function (error) {
+      console.log(error.message);
+    })
   // --------------------------------
-  console.log('response:')
-  console.log(response)
+  console.log('response:');
+  console.log(response);
+  return response;
 }
 
 // Impresión de soluciones. No modificar.
